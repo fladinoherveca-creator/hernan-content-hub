@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useSiteContent, useNews, useEvents, useGallery, usePrograms, useStaff, uploadImage, formatDate } from "@/lib/content";
+import { useSiteContent, useNews, useEvents, useGallery, usePrograms, useStaff, useWebProjects, uploadImage, formatDate } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -68,6 +68,7 @@ function AdminPage() {
           <TabsTrigger value="eventos">Eventos</TabsTrigger>
           <TabsTrigger value="fotos">Fotos</TabsTrigger>
           <TabsTrigger value="tecnicas">Técnicas SENA</TabsTrigger>
+          <TabsTrigger value="proyectos">Proyectos Web</TabsTrigger>
           <TabsTrigger value="directivos">Directivos</TabsTrigger>
         </TabsList>
         <TabsContent value="textos">
@@ -93,6 +94,7 @@ function AdminPage() {
         <TabsContent value="eventos"><EventsAdmin /></TabsContent>
         <TabsContent value="fotos"><GalleryAdmin /></TabsContent>
         <TabsContent value="tecnicas"><ProgramsAdmin /></TabsContent>
+        <TabsContent value="proyectos"><WebProjectsAdmin /></TabsContent>
         <TabsContent value="directivos"><StaffAdmin /></TabsContent>
       </Tabs>
     </div>
@@ -286,14 +288,14 @@ function GalleryAdmin() {
   );
 }
 
-type Item = { id: string; a: string; b: string; img: string | null; sort: number };
+type Item = { id: string; a: string; b: string; img: string | null; c: string; sort: number };
 
-function ListEditor({ table, queryKey, rows, aLabel, bLabel, imgLabel, long }: {
-  table: "programs" | "staff"; queryKey: string; rows: Item[];
-  aLabel: string; bLabel: string; imgLabel: string; long: boolean;
+function ListEditor({ table, queryKey, rows, aLabel, bLabel, imgLabel, linkLabel, long }: {
+  table: "programs" | "staff" | "web_projects"; queryKey: string; rows: Item[];
+  aLabel: string; bLabel: string; imgLabel: string; linkLabel?: string; long: boolean;
 }) {
   const qc = useQueryClient();
-  const empty: Item = { id: "", a: "", b: "", img: null, sort: rows.length + 1 };
+  const empty: Item = { id: "", a: "", b: "", img: null, c: "", sort: rows.length + 1 };
   const [form, setForm] = useState<Item>(empty);
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
@@ -306,7 +308,9 @@ function ListEditor({ table, queryKey, rows, aLabel, bLabel, imgLabel, long }: {
       if (file) img = await uploadImage(file);
       const payload = table === "programs"
         ? { title: form.a, description: form.b, image_url: img, sort: form.sort }
-        : { name: form.a, role: form.b, photo_url: img, sort: form.sort };
+        : table === "staff"
+          ? { name: form.a, role: form.b, photo_url: img, sort: form.sort }
+          : { title: form.a, description: form.b, image_url: img, link: form.c, sort: form.sort };
       const q = supabase.from(table);
       const { error } = form.id
         ? await q.update(payload as never).eq("id", form.id)
@@ -336,6 +340,12 @@ function ListEditor({ table, queryKey, rows, aLabel, bLabel, imgLabel, long }: {
           <div className="space-y-2"><Label>{imgLabel}</Label><Input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} /></div>
           <div className="space-y-2"><Label>Orden</Label><Input type="number" value={form.sort} onChange={(e) => setForm({ ...form, sort: Number(e.target.value) })} /></div>
         </div>
+        {linkLabel && (
+          <div className="space-y-2">
+            <Label>{linkLabel}</Label>
+            <Input placeholder="https://…" value={form.c} onChange={(e) => setForm({ ...form, c: e.target.value })} />
+          </div>
+        )}
         <div className="flex gap-2">
           <Button onClick={save} disabled={busy}>{busy ? "Guardando…" : "Guardar"}</Button>
           {form.id && <Button variant="outline" onClick={() => setForm(empty)}>Cancelar</Button>}
@@ -361,12 +371,18 @@ function ListEditor({ table, queryKey, rows, aLabel, bLabel, imgLabel, long }: {
 
 function ProgramsAdmin() {
   const { data } = usePrograms();
-  const rows = (data ?? []).map((p) => ({ id: p.id, a: p.title, b: p.description, img: p.image_url, sort: p.sort }));
+  const rows = (data ?? []).map((p) => ({ id: p.id, a: p.title, b: p.description, img: p.image_url, c: "", sort: p.sort }));
   return <ListEditor table="programs" queryKey="programs" rows={rows} aLabel="Nombre de la técnica" bLabel="Descripción" imgLabel="Imagen (opcional)" long />;
 }
 
 function StaffAdmin() {
   const { data } = useStaff();
-  const rows = (data ?? []).map((s) => ({ id: s.id, a: s.name, b: s.role, img: s.photo_url, sort: s.sort }));
+  const rows = (data ?? []).map((s) => ({ id: s.id, a: s.name, b: s.role, img: s.photo_url, c: "", sort: s.sort }));
   return <ListEditor table="staff" queryKey="staff" rows={rows} aLabel="Nombre completo" bLabel="Cargo (Rector, Coordinador, Docente…)" imgLabel="Foto (opcional)" long={false} />;
+}
+
+function WebProjectsAdmin() {
+  const { data } = useWebProjects();
+  const rows = (data ?? []).map((p) => ({ id: p.id, a: p.title, b: p.description, img: p.image_url, c: p.link, sort: p.sort }));
+  return <ListEditor table="web_projects" queryKey="web_projects" rows={rows} aLabel="Nombre del proyecto" bLabel="Descripción" imgLabel="Imagen (opcional)" linkLabel="Enlace del proyecto" long />;
 }
