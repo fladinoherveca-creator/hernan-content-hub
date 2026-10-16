@@ -38,7 +38,8 @@ function Page() {
               <span key={v} className="rounded-full bg-secondary px-4 py-2 font-semibold text-secondary-foreground">{v}</span>
             ))}
           </div>
-          <p className="mt-8 text-sm text-muted-foreground">Rectoría: <span className="font-semibold text-foreground">{c?.rector}</span></p>
+          <h2 className="mt-12 mb-6 text-2xl font-semibold text-primary-deep">Directivos</h2>
+          <StaffGrid />
         </div>
       </div>
     </>
