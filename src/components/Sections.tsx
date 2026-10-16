@@ -41,8 +41,8 @@ export function StaffGrid() {
           ) : (
             <span className="flex h-28 w-28 items-center justify-center rounded-full bg-secondary text-primary"><User className="h-12 w-12" /></span>
           )}
-          <p className="mt-4 text-lg font-semibold">{s.name}</p>
-          <p className="text-sm font-semibold text-primary">{s.role}</p>
+          {s.name && <p className="mt-4 text-lg font-semibold">{s.name}</p>}
+          <p className={`text-sm font-semibold text-primary ${s.name ? "" : "mt-4"}`}>{s.role}</p>
         </div>
       ))}
     </div>
