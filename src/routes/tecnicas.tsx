@@ -9,6 +9,8 @@ export const Route = createFileRoute("/tecnicas")({
       { name: "description", content: "Programas técnicos en articulación con el SENA: TIC, Contabilidad y Paneles Solares." },
       { property: "og:title", content: "Técnicas SENA" },
       { property: "og:description", content: "Programas técnicos: TIC, Contabilidad y Paneles Solares." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (
