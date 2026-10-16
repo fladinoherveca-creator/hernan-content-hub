@@ -1,5 +1,5 @@
-import { Cpu, Calculator, Sun, BookOpen, User } from "lucide-react";
-import { usePrograms, useStaff } from "@/lib/content";
+import { Cpu, Calculator, Sun, BookOpen, User, ExternalLink } from "lucide-react";
+import { usePrograms, useStaff, useWebProjects } from "@/lib/content";
 
 function iconFor(title: string) {
   const t = title.toLowerCase();
@@ -44,6 +44,33 @@ export function StaffGrid() {
           {s.name && <p className="mt-4 text-lg font-semibold">{s.name}</p>}
           <p className={`text-sm font-semibold text-primary ${s.name ? "" : "mt-4"}`}>{s.role}</p>
         </div>
+      ))}
+    </div>
+  );
+}
+
+export function WebProjectsGrid() {
+  const { data } = useWebProjects();
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {data?.map((p) => (
+        <article key={p.id} className="flex flex-col overflow-hidden rounded-xl border bg-card shadow-card">
+          {p.image_url && <img src={p.image_url} alt={p.title} loading="lazy" className="h-44 w-full object-cover" />}
+          <div className="flex flex-1 flex-col p-6">
+            <h3 className="text-xl font-semibold text-primary-deep">{p.title}</h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+            {p.link && (
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex w-fit items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+              >
+                Ver proyecto <ExternalLink className="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        </article>
       ))}
     </div>
   );

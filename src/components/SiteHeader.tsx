@@ -8,6 +8,7 @@ const links = [
   { to: "/", label: "Inicio" },
   { to: "/institucion", label: "Institución" },
   { to: "/tecnicas", label: "Técnicas SENA" },
+  { to: "/proyectos", label: "Proyectos Web" },
   { to: "/noticias", label: "Noticias" },
   { to: "/galeria", label: "Galería y eventos" },
   { to: "/contacto", label: "Contacto" },

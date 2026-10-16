@@ -170,6 +170,33 @@ export type Database = {
         }
         Relationships: []
       }
+      web_projects: {
+        Row: {
+          description: string
+          id: string
+          image_url: string | null
+          link: string
+          sort: number
+          title: string
+        }
+        Insert: {
+          description?: string
+          id?: string
+          image_url?: string | null
+          link?: string
+          sort?: number
+          title: string
+        }
+        Update: {
+          description?: string
+          id?: string
+          image_url?: string | null
+          link?: string
+          sort?: number
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -86,3 +86,14 @@ export function useStaff() {
     },
   });
 }
+
+export function useWebProjects() {
+  return useQuery({
+    queryKey: ["web_projects"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("web_projects").select("*").order("sort");
+      if (error) throw error;
+      return data;
+    },
+  });
+}
