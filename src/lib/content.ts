@@ -64,3 +64,25 @@ export function formatDate(d: string) {
     day: "numeric", month: "long", year: "numeric",
   });
 }
+
+export function usePrograms() {
+  return useQuery({
+    queryKey: ["programs"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("programs").select("*").order("sort");
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+export function useStaff() {
+  return useQuery({
+    queryKey: ["staff"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("staff").select("*").order("sort");
+      if (error) throw error;
+      return data;
+    },
+  });
+}
