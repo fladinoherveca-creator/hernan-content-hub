@@ -16,6 +16,7 @@ import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as InstitucionRouteImport } from './routes/institucion'
 import { Route as NoticiasRouteImport } from './routes/noticias'
+import { Route as ProyectosRouteImport } from './routes/proyectos'
 import { Route as TecnicasRouteImport } from './routes/tecnicas'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
@@ -53,6 +54,11 @@ const NoticiasRoute = NoticiasRouteImport.update({
   path: '/noticias',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProyectosRoute = ProyectosRouteImport.update({
+  id: '/proyectos',
+  path: '/proyectos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TecnicasRoute = TecnicasRouteImport.update({
   id: '/tecnicas',
   path: '/tecnicas',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/galeria': typeof GaleriaRoute
   '/institucion': typeof InstitucionRoute
   '/noticias': typeof NoticiasRoute
+  '/proyectos': typeof ProyectosRoute
   '/tecnicas': typeof TecnicasRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/galeria': typeof GaleriaRoute
   '/institucion': typeof InstitucionRoute
   '/noticias': typeof NoticiasRoute
+  '/proyectos': typeof ProyectosRoute
   '/tecnicas': typeof TecnicasRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/galeria': typeof GaleriaRoute
   '/institucion': typeof InstitucionRoute
   '/noticias': typeof NoticiasRoute
+  '/proyectos': typeof ProyectosRoute
   '/tecnicas': typeof TecnicasRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucion'
     | '/noticias'
+    | '/proyectos'
     | '/tecnicas'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucion'
     | '/noticias'
+    | '/proyectos'
     | '/tecnicas'
     | '/admin'
   id:
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucion'
     | '/noticias'
+    | '/proyectos'
     | '/tecnicas'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
@@ -138,6 +150,7 @@ export interface RootRouteChildren {
   GaleriaRoute: typeof GaleriaRoute
   InstitucionRoute: typeof InstitucionRoute
   NoticiasRoute: typeof NoticiasRoute
+  ProyectosRoute: typeof ProyectosRoute
   TecnicasRoute: typeof TecnicasRoute
 }
 
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NoticiasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/proyectos': {
+      id: '/proyectos'
+      path: '/proyectos'
+      fullPath: '/proyectos'
+      preLoaderRoute: typeof ProyectosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tecnicas': {
       id: '/tecnicas'
       path: '/tecnicas'
@@ -228,6 +248,7 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriaRoute: GaleriaRoute,
   InstitucionRoute: InstitucionRoute,
   NoticiasRoute: NoticiasRoute,
+  ProyectosRoute: ProyectosRoute,
   TecnicasRoute: TecnicasRoute,
 }
 export const routeTree = rootRouteImport
