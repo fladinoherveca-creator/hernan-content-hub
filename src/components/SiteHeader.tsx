@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Lock, Menu, X } from "lucide-react";
+import { Lock, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useSiteContent } from "@/lib/content";
+import escudo from "@/assets/escudo-hvc.png.asset.json";
 
 const links = [
   { to: "/", label: "Inicio" },
@@ -19,9 +20,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b bg-card/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <GraduationCap className="h-6 w-6" />
-          </span>
+          <img src={escudo.url} alt="Escudo de la institución" className="h-12 w-auto shrink-0" />
           <span className="max-w-[14rem] font-display text-sm font-semibold leading-tight text-primary-deep">
             {data?.school_name ?? "I.E.D. Hernán Venegas Carrillo"}
           </span>
@@ -63,7 +62,8 @@ export function SiteFooter() {
     <footer className="mt-20 bg-primary-deep text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
         <div>
-          <h3 className="text-lg font-semibold">{data?.school_name}</h3>
+          <img src={escudo.url} alt="Escudo de la institución" className="h-16 w-auto rounded-lg bg-card p-1" />
+          <h3 className="mt-3 text-lg font-semibold">{data?.school_name}</h3>
           <p className="mt-2 text-sm opacity-80">{data?.hero_subtitle}</p>
         </div>
         <div className="text-sm opacity-90">
