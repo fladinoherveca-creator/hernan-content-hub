@@ -86,6 +86,30 @@ export type Database = {
         }
         Relationships: []
       }
+      programs: {
+        Row: {
+          description: string
+          id: string
+          image_url: string | null
+          sort: number
+          title: string
+        }
+        Insert: {
+          description?: string
+          id?: string
+          image_url?: string | null
+          sort?: number
+          title: string
+        }
+        Update: {
+          description?: string
+          id?: string
+          image_url?: string | null
+          sort?: number
+          title?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           key: string
@@ -101,6 +125,30 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: string
+        }
+        Relationships: []
+      }
+      staff: {
+        Row: {
+          id: string
+          name: string
+          photo_url: string | null
+          role: string
+          sort: number
+        }
+        Insert: {
+          id?: string
+          name: string
+          photo_url?: string | null
+          role?: string
+          sort?: number
+        }
+        Update: {
+          id?: string
+          name?: string
+          photo_url?: string | null
+          role?: string
+          sort?: number
         }
         Relationships: []
       }
