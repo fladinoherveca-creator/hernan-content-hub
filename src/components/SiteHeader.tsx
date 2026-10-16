@@ -6,6 +6,7 @@ import { useSiteContent } from "@/lib/content";
 const links = [
   { to: "/", label: "Inicio" },
   { to: "/institucion", label: "Institución" },
+  { to: "/tecnicas", label: "Técnicas SENA" },
   { to: "/noticias", label: "Noticias" },
   { to: "/galeria", label: "Galería y eventos" },
   { to: "/contacto", label: "Contacto" },
@@ -16,16 +17,16 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b bg-card/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <GraduationCap className="h-6 w-6" />
           </span>
-          <span className="max-w-[16rem] font-display text-sm font-semibold leading-tight text-primary-deep">
+          <span className="max-w-[14rem] font-display text-sm font-semibold leading-tight text-primary-deep">
             {data?.school_name ?? "I.E.D. Hernán Venegas Carrillo"}
           </span>
         </Link>
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-1 xl:flex">
           {links.map((l) => (
             <Link key={l.to} to={l.to} activeOptions={{ exact: l.to === "/" }}
               className="rounded-md px-3 py-2 text-sm font-semibold text-foreground/80 hover:bg-secondary hover:text-primary"
@@ -34,12 +35,17 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menú">
-          {open ? <X /> : <Menu />}
-        </button>
+        <div className="flex items-center gap-2">
+          <Link to="/admin" className="flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
+            <Lock className="h-4 w-4" /><span className="hidden sm:inline">Administrador</span>
+          </Link>
+          <button className="xl:hidden" onClick={() => setOpen(!open)} aria-label="Menú">
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
       {open && (
-        <nav className="flex flex-col border-t px-4 py-2 lg:hidden">
+        <nav className="flex flex-col border-t px-4 py-2 xl:hidden">
           {links.map((l) => (
             <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="py-2 font-semibold">
               {l.label}
