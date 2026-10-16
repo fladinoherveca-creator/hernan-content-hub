@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { GraduationCap, Lock, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useSiteContent } from "@/lib/content";
 
