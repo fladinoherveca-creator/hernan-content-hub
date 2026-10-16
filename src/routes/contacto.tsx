@@ -10,6 +10,8 @@ export const Route = createFileRoute("/contacto")({
       { name: "description", content: "Dirección, teléfono, correo y horario de atención." },
       { property: "og:title", content: "Contacto" },
       { property: "og:description", content: "Dirección, teléfono, correo y horario." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

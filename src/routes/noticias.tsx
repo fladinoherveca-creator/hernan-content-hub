@@ -9,6 +9,8 @@ export const Route = createFileRoute("/noticias")({
       { name: "description", content: "Noticias y comunicados de la institución." },
       { property: "og:title", content: "Noticias" },
       { property: "og:description", content: "Noticias y comunicados de la institución." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

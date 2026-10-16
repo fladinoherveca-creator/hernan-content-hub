@@ -10,6 +10,8 @@ export const Route = createFileRoute("/galeria")({
       { name: "description", content: "Fotos y calendario de actividades de la institución." },
       { property: "og:title", content: "Galería y eventos" },
       { property: "og:description", content: "Fotos y calendario de actividades." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

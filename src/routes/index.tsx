@@ -11,6 +11,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Noticias, eventos e información de la I.E.D. Hernán Venegas Carrillo." },
       { property: "og:title", content: "I.E.D. Hernán Venegas Carrillo" },
       { property: "og:description", content: "Noticias, eventos e información institucional." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,

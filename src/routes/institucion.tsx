@@ -10,6 +10,8 @@ export const Route = createFileRoute("/institucion")({
       { name: "description", content: "Misión, visión, historia y valores de la institución." },
       { property: "og:title", content: "Nuestra institución" },
       { property: "og:description", content: "Misión, visión, historia y valores." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,
