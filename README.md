@@ -1,24 +1,29 @@
-# Hernan Content Hub
+# I.E.D. Hernán Venegas Carrillo — Sitio web
 
-Yo soy me hago cargo de esta pagina Web iedhernanvenegascarillo.edu.co Pero el profesor me pidio hacer una aplicativo casi igual para un despliegue a gibhub esta pagina debe tener panel de administrador donde se puedan hacer cambios desde hay de la pagina
+Sitio web institucional con panel de administración para gestionar noticias, eventos, galería de fotos, técnicas SENA, directivos y textos de la página.
 
-This project was built with [Lovable](https://lovable.dev).
+**Sitio en vivo:** https://hernan-content-hub.lovable.app
 
-## Build with Lovable
+## Panel de administración
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/ff374f82-6903-4dd0-a1ee-03636836cf91).
+- Acceso: botón **Administrador** (arriba a la derecha en cualquier página).
+- La primera cuenta registrada se convierte en la única administradora.
+- Desde el panel se editan: textos, datos de contacto, noticias, eventos, fotos, técnicas SENA y directivos.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Cómo funciona
 
-## Development
+- El contenido (noticias, fotos, textos) vive en una base de datos, no en el código: se edita desde el panel y se ve al instante en el sitio.
+- El sitio necesita un servidor con Node.js y esa base de datos para funcionar; por eso GitHub solo guarda el **código**, no la página funcionando.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Ver el código en GitHub
+
+Este repositorio contiene el código fuente. Para ver el sitio funcionando, usa el enlace "Sitio en vivo" de arriba.
+
+## Desarrollo
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
+
+Este proyecto fue construido con [Lovable](https://lovable.dev). Cada cambio hecho en el editor de Lovable se sincroniza automáticamente con este repositorio.
