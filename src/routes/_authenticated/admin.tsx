@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useSiteContent, useNews, useEvents, useGallery, uploadImage, formatDate } from "@/lib/content";
+import { useSiteContent, useNews, useEvents, useGallery, usePrograms, useStaff, uploadImage, formatDate } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -67,6 +67,8 @@ function AdminPage() {
           <TabsTrigger value="noticias">Noticias</TabsTrigger>
           <TabsTrigger value="eventos">Eventos</TabsTrigger>
           <TabsTrigger value="fotos">Fotos</TabsTrigger>
+          <TabsTrigger value="tecnicas">Técnicas SENA</TabsTrigger>
+          <TabsTrigger value="directivos">Directivos</TabsTrigger>
         </TabsList>
         <TabsContent value="textos">
           <ContentForm fields={[
@@ -77,7 +79,6 @@ function AdminPage() {
             ["vision", "Visión", true],
             ["history", "Historia", true],
             ["values", "Valores (separados por comas)", false],
-            ["rector", "Rector(a)", false],
           ]} />
         </TabsContent>
         <TabsContent value="contacto">
@@ -91,6 +92,8 @@ function AdminPage() {
         <TabsContent value="noticias"><NewsAdmin /></TabsContent>
         <TabsContent value="eventos"><EventsAdmin /></TabsContent>
         <TabsContent value="fotos"><GalleryAdmin /></TabsContent>
+        <TabsContent value="tecnicas"><ProgramsAdmin /></TabsContent>
+        <TabsContent value="directivos"><StaffAdmin /></TabsContent>
       </Tabs>
     </div>
   );
@@ -281,4 +284,89 @@ function GalleryAdmin() {
       </div>
     </>
   );
+}
+
+type Item = { id: string; a: string; b: string; img: string | null; sort: number };
+
+function ListEditor({ table, queryKey, rows, aLabel, bLabel, imgLabel, long }: {
+  table: "programs" | "staff"; queryKey: string; rows: Item[];
+  aLabel: string; bLabel: string; imgLabel: string; long: boolean;
+}) {
+  const qc = useQueryClient();
+  const empty: Item = { id: "", a: "", b: "", img: null, sort: rows.length + 1 };
+  const [form, setForm] = useState<Item>(empty);
+  const [file, setFile] = useState<File | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function save() {
+    if (!form.a) { toast.error(`${aLabel} es obligatorio`); return; }
+    setBusy(true);
+    try {
+      let img = form.img;
+      if (file) img = await uploadImage(file);
+      const payload = table === "programs"
+        ? { title: form.a, description: form.b, image_url: img, sort: form.sort }
+        : { name: form.a, role: form.b, photo_url: img, sort: form.sort };
+      const q = supabase.from(table);
+      const { error } = form.id
+        ? await q.update(payload as never).eq("id", form.id)
+        : await q.insert(payload as never);
+      if (error) throw error;
+      toast.success("Guardado");
+      setForm({ ...empty, sort: rows.length + 2 }); setFile(null);
+      qc.invalidateQueries({ queryKey: [queryKey] });
+    } catch { toast.error("No se pudo guardar"); } finally { setBusy(false); }
+  }
+  async function remove(id: string) {
+    if (!confirm("¿Eliminar?")) return;
+    await supabase.from(table).delete().eq("id", id);
+    qc.invalidateQueries({ queryKey: [queryKey] });
+  }
+
+  return (
+    <>
+      <div className={card}>
+        <h2 className="text-xl font-semibold">{form.id ? "Editar" : "Agregar nuevo"}</h2>
+        <div className="space-y-2"><Label>{aLabel}</Label><Input value={form.a} onChange={(e) => setForm({ ...form, a: e.target.value })} /></div>
+        <div className="space-y-2"><Label>{bLabel}</Label>
+          {long ? <Textarea rows={4} value={form.b} onChange={(e) => setForm({ ...form, b: e.target.value })} />
+            : <Input value={form.b} onChange={(e) => setForm({ ...form, b: e.target.value })} />}
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2"><Label>{imgLabel}</Label><Input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} /></div>
+          <div className="space-y-2"><Label>Orden</Label><Input type="number" value={form.sort} onChange={(e) => setForm({ ...form, sort: Number(e.target.value) })} /></div>
+        </div>
+        <div className="flex gap-2">
+          <Button onClick={save} disabled={busy}>{busy ? "Guardando…" : "Guardar"}</Button>
+          {form.id && <Button variant="outline" onClick={() => setForm(empty)}>Cancelar</Button>}
+        </div>
+      </div>
+      <ul className="mt-6 space-y-3">
+        {rows.map((r) => (
+          <li key={r.id} className="flex items-center justify-between gap-4 rounded-lg border bg-card p-4">
+            <div className="flex items-center gap-3">
+              {r.img && <img src={r.img} alt="" className="h-12 w-12 rounded-full object-cover" />}
+              <div><p className="font-semibold">{r.a}</p><p className="line-clamp-1 text-xs text-muted-foreground">{r.b}</p></div>
+            </div>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={() => setForm(r)}>Editar</Button>
+              <Button size="sm" variant="destructive" onClick={() => remove(r.id)}><Trash2 className="h-4 w-4" /></Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function ProgramsAdmin() {
+  const { data } = usePrograms();
+  const rows = (data ?? []).map((p) => ({ id: p.id, a: p.title, b: p.description, img: p.image_url, sort: p.sort }));
+  return <ListEditor table="programs" queryKey="programs" rows={rows} aLabel="Nombre de la técnica" bLabel="Descripción" imgLabel="Imagen (opcional)" long />;
+}
+
+function StaffAdmin() {
+  const { data } = useStaff();
+  const rows = (data ?? []).map((s) => ({ id: s.id, a: s.name, b: s.role, img: s.photo_url, sort: s.sort }));
+  return <ListEditor table="staff" queryKey="staff" rows={rows} aLabel="Nombre completo" bLabel="Cargo (Rector, Coordinador, Docente…)" imgLabel="Foto (opcional)" long={false} />;
 }

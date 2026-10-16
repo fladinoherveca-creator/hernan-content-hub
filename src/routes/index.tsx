@@ -1,3 +1,4 @@
+import { ProgramsGrid, StaffGrid } from "@/components/Sections";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, ArrowRight } from "lucide-react";
 import hero from "@/assets/hero.jpg";
@@ -71,6 +72,21 @@ function Index() {
             ))}
           </ul>
         </aside>
+      </section>
+
+      <section className="bg-secondary py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-8 flex items-end justify-between">
+            <h2 className="text-3xl font-semibold text-primary-deep">Técnicas SENA</h2>
+            <Link to="/tecnicas" className="flex items-center gap-1 text-sm font-semibold text-primary">Ver más <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <ProgramsGrid />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <h2 className="mb-8 text-3xl font-semibold text-primary-deep">Directivos</h2>
+        <StaffGrid />
       </section>
     </>
   );
