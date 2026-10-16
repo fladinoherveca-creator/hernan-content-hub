@@ -47,7 +47,8 @@ function AuthPage() {
   return (
     <div className="mx-auto max-w-md px-4 py-20">
       <div className="rounded-xl border bg-card p-8 shadow-card">
-        <h1 className="text-3xl font-semibold text-primary-deep">{mode === "in" ? "Ingresar" : "Crear cuenta"}</h1>
+        <img src={escudo.url} alt="Escudo de la institución" className="h-20 w-auto" />
+        <h1 className="mt-4 text-3xl font-semibold text-primary-deep">{mode === "in" ? "Ingresar" : "Crear cuenta"}</h1>
         <p className="mt-2 text-sm text-muted-foreground">Panel de administración del sitio.</p>
         <form onSubmit={submit} className="mt-6 space-y-4">
           <div className="space-y-2">
