@@ -1,3 +1,4 @@
+import { ProgramsGrid, StaffGrid } from "@/components/Sections";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, ArrowRight } from "lucide-react";
 import hero from "@/assets/hero.jpg";

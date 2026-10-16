@@ -1,3 +1,4 @@
+import { StaffGrid } from "@/components/Sections";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { useSiteContent } from "@/lib/content";
