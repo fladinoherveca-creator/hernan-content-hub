@@ -37,12 +37,12 @@ export function StaffGrid() {
       {data?.map((s) => (
         <div key={s.id} className="flex flex-col items-center rounded-xl bg-card p-6 text-center shadow-card">
           {s.photo_url ? (
-            <img src={s.photo_url} alt={s.name} loading="lazy" className="h-28 w-28 rounded-full object-cover ring-4 ring-secondary" />
+            <img src={s.photo_url} alt={s.role} loading="lazy" className="h-28 w-28 rounded-full object-cover ring-4 ring-secondary" />
           ) : (
             <span className="flex h-28 w-28 items-center justify-center rounded-full bg-secondary text-primary"><User className="h-12 w-12" /></span>
           )}
-          <p className="mt-4 text-lg font-semibold">{s.name}</p>
-          <p className="text-sm font-semibold text-primary">{s.role}</p>
+          {s.name && <p className="mt-4 text-lg font-semibold">{s.name}</p>}
+          <p className={`text-sm font-semibold text-primary ${s.name ? "" : "mt-4"}`}>{s.role}</p>
         </div>
       ))}
     </div>
