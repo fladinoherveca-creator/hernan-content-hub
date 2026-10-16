@@ -1,7 +1,7 @@
 import { ProgramsGrid, StaffGrid } from "@/components/Sections";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, ArrowRight } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import hero from "@/assets/bandera-hero.webp.asset.json";
 import { useSiteContent, useNews, useEvents, formatDate } from "@/lib/content";
 
 export const Route = createFileRoute("/")({
@@ -26,7 +26,7 @@ function Index() {
   return (
     <>
       <section className="relative isolate overflow-hidden">
-        <img src={hero} alt="Estudiantes en la institución" width={1600} height={912} className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        <img src={hero.url} alt="Estudiantes con banderas en la institución" width={960} height={960} className="absolute inset-0 -z-10 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-hero-overlay" />
         <div className="mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-end px-4 pb-16 pt-32 text-primary-foreground">
           <p className="mb-3 inline-flex w-fit rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-accent-foreground">
