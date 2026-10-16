@@ -1,4 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+export type SiteContent = Partial<Record<
+  | "school_name" | "hero_title" | "hero_subtitle" | "mission" | "vision" | "history"
+  | "values" | "rector" | "address" | "phone" | "email" | "schedule", string>>;
+
 import { supabase } from "@/integrations/supabase/client";
 
 export function useSiteContent() {
@@ -7,7 +11,7 @@ export function useSiteContent() {
     queryFn: async () => {
       const { data, error } = await supabase.from("site_content").select("key, value");
       if (error) throw error;
-      return Object.fromEntries(data.map((r) => [r.key, r.value])) as Record<string, string>;
+      return Object.fromEntries(data.map((r) => [r.key, r.value])) as SiteContent;
     },
   });
 }

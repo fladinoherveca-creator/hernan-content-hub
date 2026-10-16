@@ -1,4 +1,4 @@
-export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+export function PageHeader({ title, subtitle }: { title: string; subtitle?: string | undefined }) {
   return (
     <section className="bg-primary-deep text-primary-foreground">
       <div className="mx-auto max-w-6xl px-4 py-14">

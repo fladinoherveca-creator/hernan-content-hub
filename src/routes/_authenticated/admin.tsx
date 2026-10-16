@@ -103,14 +103,14 @@ function ContentForm({ fields }: { fields: [string, string, boolean][] }) {
   const qc = useQueryClient();
   const [values, setValues] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
-  useEffect(() => { if (data) setValues(data); }, [data]);
+  useEffect(() => { if (data) setValues(data as Record<string, string>); }, [data]);
 
   async function save() {
     setSaving(true);
     const rows = fields.map(([key]) => ({ key, value: values[key] ?? "", updated_at: new Date().toISOString() }));
     const { error } = await supabase.from("site_content").upsert(rows);
     setSaving(false);
-    if (error) return toast.error("No se pudo guardar");
+    if (error) { toast.error("No se pudo guardar"); return; }
     toast.success("Cambios guardados");
     qc.invalidateQueries({ queryKey: ["site_content"] });
   }
@@ -141,7 +141,7 @@ function NewsAdmin() {
   const [busy, setBusy] = useState(false);
 
   async function save() {
-    if (!form.title) return toast.error("El título es obligatorio");
+    if (!form.title) { toast.error("El título es obligatorio"); return; }
     setBusy(true);
     try {
       let image_url = form.image_url || null;
@@ -199,9 +199,9 @@ function EventsAdmin() {
   const [form, setForm] = useState({ title: "", description: "", event_date: "", location: "" });
 
   async function add() {
-    if (!form.title || !form.event_date) return toast.error("Título y fecha son obligatorios");
+    if (!form.title || !form.event_date) { toast.error("Título y fecha son obligatorios"); return; }
     const { error } = await supabase.from("events").insert(form);
-    if (error) return toast.error("No se pudo guardar");
+    if (error) { toast.error("No se pudo guardar"); return; }
     toast.success("Evento agregado");
     setForm({ title: "", description: "", event_date: "", location: "" });
     qc.invalidateQueries({ queryKey: ["events"] });
@@ -244,7 +244,7 @@ function GalleryAdmin() {
   const [busy, setBusy] = useState(false);
 
   async function add() {
-    if (!file) return toast.error("Selecciona una foto");
+    if (!file) { toast.error("Selecciona una foto"); return; }
     setBusy(true);
     try {
       const image_url = await uploadImage(file);
