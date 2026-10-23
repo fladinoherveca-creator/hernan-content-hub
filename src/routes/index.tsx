@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, ArrowRight } from "lucide-react";
 import hero from "@/assets/bandera-hero.webp.asset.json";
 import { useSiteContent, useNews, useEvents, formatDate } from "@/lib/content";
+import { IntroSplash } from "@/components/IntroSplash";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,6 +26,7 @@ function Index() {
 
   return (
     <>
+      <IntroSplash />
       <section className="relative isolate overflow-hidden">
         <img src={hero.url} alt="Estudiantes con banderas en la institución" width={960} height={960} className="absolute inset-0 -z-10 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-hero-overlay" />
