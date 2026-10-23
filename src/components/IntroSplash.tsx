@@ -50,7 +50,6 @@ export function IntroSplash() {
       {name && (
         <h1 className="intro-name max-w-2xl text-3xl font-semibold leading-tight sm:text-5xl">{name}</h1>
       )}
-      <span className="intro-line block h-[3px] w-40 rounded-full bg-accent" />
       <p className="intro-sub text-sm uppercase tracking-[0.2em] opacity-80">Tocaima · Cundinamarca</p>
     </div>
   );
