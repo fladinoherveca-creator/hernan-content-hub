@@ -90,10 +90,10 @@
   to { opacity: 0; visibility: hidden; }
 }
 
-.intro-shield { animation: intro-shield 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.intro-name { animation: intro-name 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 420ms both; }
-.intro-line { transform-origin: center; animation: intro-line 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 820ms both; }
-.intro-sub { animation: intro-name 800ms ease-out 1000ms both; }
+.intro-shield { animation: intro-shield 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.intro-name { animation: intro-name 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 260ms both; }
+.intro-line { transform-origin: center; animation: intro-line 800ms cubic-bezier(0.2, 0.8, 0.2, 1) 620ms both; }
+.intro-sub { animation: intro-name 700ms ease-out 780ms both; }
 .intro-out { animation: intro-out 700ms ease-in both; }
 
 @media (prefers-reduced-motion: reduce) {
