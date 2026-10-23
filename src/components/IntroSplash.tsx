@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import escudo from "@/assets/escudo-hvc.png.asset.json";
+import escudo from "@/assets/emblema-hvc.png.asset.json";
 import { useSiteContent } from "@/lib/content";
 
 const SEEN_KEY = "hvc-intro-seen";
@@ -43,7 +43,7 @@ export function IntroSplash() {
       <img
         src={escudo.url}
         alt="Escudo de la institución"
-        className="intro-shield h-28 w-28 rounded-full bg-card p-2 shadow-card sm:h-36 sm:w-36"
+        className="intro-shield h-32 w-32 object-contain drop-shadow-lg sm:h-40 sm:w-40"
       />
       <div className="flex h-[7.5rem] items-center justify-center sm:h-[12rem]">
         <h1 className="intro-name max-w-2xl text-3xl font-semibold leading-tight sm:text-5xl">{name}</h1>
