@@ -43,7 +43,7 @@ export function IntroSplash() {
       <img
         src={escudo.url}
         alt="Escudo de la institución"
-        className="intro-shield h-44 w-44 object-contain drop-shadow-lg sm:h-56 sm:w-56"
+        className="intro-shield h-44 w-44 rounded-2xl shadow-card sm:h-56 sm:w-56"
       />
       <div className="flex h-[7.5rem] items-center justify-center sm:h-[12rem]">
         <h1 className="intro-name max-w-2xl text-3xl font-semibold leading-tight sm:text-5xl">{name}</h1>
