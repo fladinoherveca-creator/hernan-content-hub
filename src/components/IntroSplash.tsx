@@ -47,7 +47,7 @@ export function IntroSplash() {
         alt="Escudo de la institución"
         className="intro-shield h-28 w-28 rounded-full bg-card p-2 shadow-card sm:h-36 sm:w-36"
       />
-      <div className="flex min-h-[4.5rem] items-center justify-center sm:min-h-[9.5rem]">
+      <div className="flex h-[7.5rem] items-center justify-center sm:h-[12rem]">
         <h1 className={`intro-name max-w-2xl text-3xl font-semibold leading-tight sm:text-5xl ${name ? "" : "invisible"}`}>
           {name ?? FALLBACK_NAME}
         </h1>
