@@ -73,3 +73,32 @@
 
 @utility bg-hero-overlay { background: var(--gradient-hero); }
 @utility shadow-card { box-shadow: var(--shadow-card); }
+
+@keyframes intro-shield {
+  from { opacity: 0; transform: scale(0.82) translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes intro-name {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes intro-line {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes intro-out {
+  to { opacity: 0; visibility: hidden; }
+}
+
+.intro-shield { animation: intro-shield 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.intro-name { animation: intro-name 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 420ms both; }
+.intro-line { transform-origin: center; animation: intro-line 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 820ms both; }
+.intro-sub { animation: intro-name 800ms ease-out 1000ms both; }
+.intro-out { animation: intro-out 700ms ease-in both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-shield, .intro-name, .intro-line, .intro-sub, .intro-out {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+}
