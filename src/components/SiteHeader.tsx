@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Lock, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useSiteContent } from "@/lib/content";
-import escudo from "@/assets/escudo-hvc.png.asset.json";
+import escudo from "@/assets/emblema-hvc.png.asset.json";
 
 const links = [
   { to: "/", label: "Inicio" },
@@ -63,7 +63,7 @@ export function SiteFooter() {
     <footer className="mt-20 bg-primary-deep text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
         <div>
-          <img src={escudo.url} alt="Escudo de la institución" className="h-16 w-auto rounded-lg bg-card p-1" />
+          <img src={escudo.url} alt="Escudo de la institución" className="h-16 w-auto drop-shadow" />
           <h3 className="mt-3 text-lg font-semibold">{data?.school_name}</h3>
           <p className="mt-2 text-sm opacity-80">{data?.hero_subtitle}</p>
         </div>
