@@ -11,7 +11,6 @@ const FALLBACK_NAME = "I.E.D. Hernán Venegas Carrillo";
 export function IntroSplash() {
   const { data } = useSiteContent();
   const [phase, setPhase] = useState<"in" | "out" | "gone">("in");
-  const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
     let seen = false;
@@ -26,15 +25,14 @@ export function IntroSplash() {
 
   useEffect(() => {
     if (phase === "gone") return;
-    const t = setTimeout(() => setTimedOut(true), 1200);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { clearTimeout(t); document.body.style.overflow = prev; };
+    return () => { document.body.style.overflow = prev; };
   }, [phase]);
 
   if (phase === "gone") return null;
 
-  const name = data ? data.school_name || FALLBACK_NAME : timedOut ? FALLBACK_NAME : null;
+  const name = data?.school_name || FALLBACK_NAME;
 
   return (
     <div
@@ -48,9 +46,7 @@ export function IntroSplash() {
         className="intro-shield h-28 w-28 rounded-full bg-card p-2 shadow-card sm:h-36 sm:w-36"
       />
       <div className="flex h-[7.5rem] items-center justify-center sm:h-[12rem]">
-        <h1 className={`intro-name max-w-2xl text-3xl font-semibold leading-tight sm:text-5xl ${name ? "" : "invisible"}`}>
-          {name ?? FALLBACK_NAME}
-        </h1>
+        <h1 className="intro-name max-w-2xl text-3xl font-semibold leading-tight sm:text-5xl">{name}</h1>
       </div>
       <span className="intro-line block h-[3px] w-40 rounded-full bg-accent" />
       <p className="intro-sub text-sm uppercase tracking-[0.2em] opacity-80">Tocaima · Cundinamarca</p>
